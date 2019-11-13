@@ -93,9 +93,21 @@ public class Member {
 		setCancer(cancer);
 		setDiabetes(diabetes);
 		setAlzheimers(alzheimers);
-		
-		
-		
+	}
+	
+	@Override
+	public String toString() {
+		 return String.format("%s, %s\n"
+		 		+ "Age		%d\n"
+		 		+ "Height		%d in\n"
+		 		+ "Weight		%d lbs\n"
+		 		+ "BP Syst		%d\n"
+		 		+ "BP Dias		%d\n"
+		 		+ "Cancer		%s\n"
+		 		+ "Diabetes	%s\n"
+		 		+ "Alzheimers	%s\n"
+		 		+ "-----------------------", 
+		 		lastname, firstname, age, height, weight, bp_syst, bp_dias, cancer, diabetes, alzheimers);
 	}
 	
 }
