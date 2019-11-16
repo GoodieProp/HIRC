@@ -1,13 +1,12 @@
-/**
- * 
- */
+import java.io.Serializable;
 
 /**
  * @author xavie
  *
  */
-public class Member {
+public class Member implements Serializable {
 
+	// Initialized variables for members
 	private String firstname;
 	private String lastname;
 	private int age;
@@ -18,8 +17,8 @@ public class Member {
 	private String cancer;
 	private String diabetes;
 	private String alzheimers;
-	
-	
+
+	// Setters and Getters for each variable
 	public String getFirstname() {
 		return firstname;
 	}
@@ -80,9 +79,11 @@ public class Member {
 	public void setAlzheimers(String alzheimers) {
 		this.alzheimers = alzheimers;
 	}
-	
+
+
+	// Constructor to add new members
 	public Member(String firstname, String lastname, int age, int height, int weight, 
-					int bp_syst, int bp_dias, String cancer, String diabetes,String alzheimers) {
+			int bp_syst, int bp_dias, String cancer, String diabetes,String alzheimers) {
 		setFirstname(firstname);
 		setLastname(lastname);
 		setAge(age);
@@ -94,20 +95,39 @@ public class Member {
 		setDiabetes(diabetes);
 		setAlzheimers(alzheimers);
 	}
-	
-	@Override
-	public String toString() {
-		 return String.format("%s, %s\n"
-		 		+ "Age		%d\n"
-		 		+ "Height		%d in\n"
-		 		+ "Weight		%d lbs\n"
-		 		+ "BP Syst		%d\n"
-		 		+ "BP Dias		%d\n"
-		 		+ "Cancer		%s\n"
-		 		+ "Diabetes	%s\n"
-		 		+ "Alzheimers	%s\n"
-		 		+ "-----------------------", 
-		 		lastname, firstname, age, height, weight, bp_syst, bp_dias, cancer, diabetes, alzheimers);
+
+	public Member() { // for xml serialization
+		firstname = "";
+		lastname = "";
+		age = 0;
+		height = 0;
+		weight = 0;
+		bp_syst = 0;
+		bp_dias = 0;
+		cancer = "";
+		diabetes = "";
+		alzheimers = "";
+
 	}
-	
+
+	// Formatted toString to print to screen
+	public String toStringToScreen() {
+		return String.format("%s, %s\n"
+				+ "Age		%d\n"
+				+ "Height		%d in\n"
+				+ "Weight		%d lbs\n"
+				+ "BP Syst		%d\n"
+				+ "BP Dias		%d\n"
+				+ "Cancer		%s\n"
+				+ "Diabetes	%s\n"
+				+ "Alzheimers	%s\n"
+				+ "-----------------------", 
+				lastname, firstname, age, height, weight, bp_syst, bp_dias, cancer, diabetes, alzheimers);
+	}
+
+	// Formatted toString to print to file
+	public String toStringFile() {
+		return String.format("%s	%s	%s	%s	%s	%s	%s	%s	%s	%s", firstname, lastname, age, height, weight, bp_syst, bp_dias, cancer, diabetes, alzheimers);
+	}
+
 }
