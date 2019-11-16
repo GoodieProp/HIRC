@@ -1,4 +1,5 @@
-import java.io.File;
+import java.beans.XMLDecoder;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -11,58 +12,129 @@ import java.util.Scanner;
  *
  */
 public class MemberReader {
-	
-		public static Member parseMembers(String member) {
-			
-			String firstname;
-			String lastname;
-			int age;
-			int height;
-			int weight; 
-			int bp_syst;
-			int bp_dias;
-			String cancer;
-			String diabetes;
-			String alzheimers;
-			String parts[] = member.split("\t");
-			
-			firstname = parts[0];
-			lastname = parts[1];
-			age = Integer.parseInt(parts[2]);
-			height = Integer.parseInt(parts[3]);
-			weight = Integer.parseInt(parts[4]);
-			bp_syst = Integer.parseInt(parts[5]);
-			bp_dias = Integer.parseInt(parts[6]);
-			cancer = parts[7];
-			diabetes = parts[8];
-			alzheimers = parts[9];
-			
+
+	// function to parse members when asked at the start of the program
+	public static Member parseMembersFromInitialFile(String member) {
+
+		String firstname;
+		String lastname;
+		int age;
+		int height;
+		int weight; 
+		int bp_syst;
+		int bp_dias;
+		String cancer;
+		String diabetes;
+		String alzheimers;
+
+		String parts[] = member.split("\t");
+
+		firstname = parts[0];
+		lastname = parts[1];
+		age = Integer.parseInt(parts[2]);
+		height = Integer.parseInt(parts[3]);
+		weight = Integer.parseInt(parts[4]);
+		bp_syst = Integer.parseInt(parts[5]);
+		bp_dias = Integer.parseInt(parts[6]);
+		cancer = parts[7];
+		diabetes = parts[8];
+		alzheimers = parts[9];
+
+
+		return new Member(firstname, lastname, age, height, weight, bp_syst, bp_dias, cancer, diabetes, alzheimers);
+	}
+
+	public static ArrayList<Member> loadMembers (String fname) {
+
+		try {
+			/**
+			 * Creates a scanner for the file and also an arraylist that goes through the constructor class
+			 * Uses parseMembers to parse the info into an arraylist
+			 */
+			Scanner fsc = new Scanner(new File(fname));
+			String line = "";
 			ArrayList<Member> members = new ArrayList<Member>();
-			
-			return new Member(firstname, lastname, age, height, weight, bp_syst, bp_dias, cancer, diabetes, alzheimers);
+
+			while (fsc.hasNextLine()) {
+				line = fsc.nextLine();
+				members.add(parseMembersFromInitialFile(line));
+			}
+
+			System.out.printf("%s members were read.", members.size());		
+			return members;
+
+		} catch (Exception ex) {
+			System.out.println("Something went wrong.");
+			return null;
+		}	
+	}
+
+	public static ArrayList<Member> readMembersFromFile (String fname) {
+
+		Scanner sc = new Scanner(System.in);
+		ArrayList<Member> members = new ArrayList<Member>();
+
+		// read from Text file
+		if (fname.equals("T")) {
+			System.out.println("Enter name of input file: ");
+			String inputFileText = sc.next();
+			members = loadMembers(inputFileText);
+			System.out.printf("%s members were read.", members.size());
+			return members;
+
+			// read from Binary file	
+		} else if (fname.equals("B")) {
+			System.out.println("Enter name of input file: ");
+			String inputFileBinary = sc.next();
+			ArrayList<Member> readFromBin = readMembersFromBinary(inputFileBinary);
+
+			return readFromBin;
+
+			// read from XML file	
+		} else if (fname.equals("X")) {
+			System.out.println("Enter name of input file: ");
+			String inputFileXML = sc.next();
+			ArrayList<Member> readFromXML = readMembersFromXML(inputFileXML);
+			return readFromXML;
+
+		} else {
+			System.out.println("You must type in either 'T' for Text, 'B' for Binary, or 'X' for XML. "
+					+ "Please try again.");
+			return null;
 		}
-	
-		public static ArrayList<Member> readMembers (String fname) {
-			
-			try {
-				/**
-				 * Creates a scanner for the file and also an arraylist that goes through the constructor class
-				 * Uses parseMembers to parse the info into an arraylist
-				 */
-				Scanner fsc = new Scanner(new File(fname));
-				String line = "";
-				ArrayList<Member> members = new ArrayList<Member>();
-				
-				while (fsc.hasNextLine()) {
-					line = fsc.nextLine();
-					members.add(parseMembers(fname));
-				}
-				
-				return members;
-				
-			} catch (Exception ex) {
-				ex.printStackTrace();
-				return null;
-			}	
-		}
+
+	}
+
+	public static ArrayList<Member> readMembersFromBinary(String fname) {
+
+		try {
+			ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fname));
+			ArrayList<Member> result = (ArrayList<Member>)ois.readObject();
+			ois.close();
+			System.out.printf("%s members were read.", result.size());
+			return result;
+
+		} catch (Exception ex) {
+			System.out.println("Something went bad.\n");
+			ex.printStackTrace();
+			return null;
+		}	
+
+	}
+
+	public static ArrayList<Member> readMembersFromXML(String fname) {
+
+		try {
+			XMLDecoder dec = new XMLDecoder(new BufferedInputStream(new FileInputStream(fname)));
+			ArrayList<Member> members = (ArrayList<Member>)dec.readObject();
+			dec.close();
+			System.out.printf("%s members were read.", members.size());
+			return members;
+		} catch (Exception ex) {
+			System.out.println("Something went bad.\n");
+			ex.printStackTrace();
+			return null;
+		}	
+
+	}
 }
