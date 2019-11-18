@@ -59,8 +59,7 @@ public class MemberReader {
 				line = fsc.nextLine();
 				members.add(parseMembersFromInitialFile(line));
 			}
-
-			System.out.printf("%s members were read.", members.size());		
+	
 			return members;
 
 		} catch (Exception ex) {

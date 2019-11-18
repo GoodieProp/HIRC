@@ -2,7 +2,7 @@ import java.beans.XMLEncoder;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
-// import org.json.simple.*; add later
+import org.json.simple.*; 
 
 /**
  * 
@@ -58,7 +58,7 @@ public class MemberWriter {
 			return true;
 
 		} catch (Exception ex) {
-			System.out.println("Something went bad.\n");
+			System.out.println("Something went wrong.");
 			return false;
 		}
 
@@ -75,7 +75,7 @@ public class MemberWriter {
 			return true;
 
 		} catch (Exception ex) {
-			System.out.println("Something went bad.\n");
+			System.out.println("Something went wrong.");
 			return false;
 		}	
 	}
@@ -90,7 +90,7 @@ public class MemberWriter {
 			System.out.println("Members were written succesfully.");
 			return true;
 		} catch (Exception ex) {
-			System.out.println("Something went bad.\n");
+			System.out.println("Something went wrong.");
 			return false;
 		}
 	}
