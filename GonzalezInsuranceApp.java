@@ -62,15 +62,15 @@ public class GonzalezInsuranceApp {
 		String cancerN;
 		String diabetesN;
 		String alzheimersN;
-
+		ArrayList<InsuranceScore> insuranceScore = new ArrayList<InsuranceScore>();
+		
+		
 		printWelcome();
 
 		System.out.print("Enter name of member file: ");
 		String fn = sc.next();
 		ArrayList<Member> members = MemberReader.loadMembers(fn);
-		System.out.printf("%s members were read.", members.size());
-
-		//c:/tempP/insurance.txt
+		System.out.printf("%s members were read.\n", members.size());
 
 		do {
 			showMenu();
@@ -84,52 +84,8 @@ public class GonzalezInsuranceApp {
 				MemberWriter.writeMembersToScreen(members);
 			} else if (choice == 2) {
 
-				/**
-				 * 2nd choice is to add a new member
-				 */
+				members.add(addMember.addMembers());
 
-				// First and last name
-				System.out.println("Enter first and last name: ");
-				firstnameN = sc.next();
-				lastnameN = sc.next();
-
-				// Age
-				System.out.println("Enter age: ");
-				ageN = sc.nextInt();
-
-				// Height
-				System.out.println("Enter height in inches: ");
-				heightN = sc.nextInt();
-
-				// Weight
-				System.out.println("Enter weight in pounds: ");
-				weightN = sc.nextInt();
-
-				// Blood Pressure
-				System.out.println("Enter blood pressure (sys and dia): ");
-				bp_sys = Integer.parseInt(sc.next());
-				bp_dias = Integer.parseInt(sc.next());
-
-				System.out.println("Has a family member had ...");
-				sc.nextLine(); // sucks out the end of line marker
-
-				// Cancer
-				System.out.println("Cancer?: ");
-				cancerN = sc.nextLine().toLowerCase();
-
-				// Diabetes
-				System.out.println("Diabetes?: ");
-				diabetesN = sc.nextLine().toLowerCase();
-
-				// Alzheimers
-				System.out.println("Alzheimers?: ");
-				alzheimersN = sc.nextLine().toLowerCase();
-
-				Member mem = new Member(firstnameN, lastnameN, ageN, heightN, weightN, bp_sys, bp_dias, cancerN, diabetesN, alzheimersN);
-
-				members.add(mem);
-
-				sc.nextLine();
 			} else if (choice == 3) {
 				System.out.println("(T)ext, (B)inary, or (X)ML?: ");
 				String fileFormat = sc.next();
@@ -145,14 +101,18 @@ public class GonzalezInsuranceApp {
 
 			} else if (choice == 5) {
 
-				System.out.println("Here are the insurance assessments: ");
-				Assessor.assessMembers(members);
+				System.out.println("Here are the insurance assessments: \n");
+				insuranceScore = Assessor.assessMembers(members);
+				InsuranceScoreWriter.writeScoresToScreen(insuranceScore);
 
 			} else if (choice == 6) {
-
+				System.out.print("Enter name of JSON file: ");
+				String jsonFileName = sc.nextLine();
+				InsuranceScoreWriter.writeMemberAssessmentsToJSONFile(jsonFileName, insuranceScore);
+				
 			} else if (choice == 7) {
 				System.out.println("   INSURANCE SCORE CARD");
-				System.out.println("	Thank You!");
+				System.out.println("        Thank You!");
 			}
 
 		} while (choice != 7);
