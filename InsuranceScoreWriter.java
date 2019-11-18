@@ -3,20 +3,21 @@ import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
-
 import org.json.simple.*;
 
 /**
- * 
- */
-
-/**
- * @author xavie
+ * This class represents how the assessments of the members is written to either a JSON file or to the screen.
+ * @author Xavier Gonzalez
  *
  */
 public class InsuranceScoreWriter {
 
-	
+	/**
+	 * This function writes the assessments of the members to a JSON file.
+	 * @param fn the file name
+	 * @param is the arraylist consisting of member assessments objects.
+	 * @return True if the file has been written, or False if there was an error.
+	 */
 	public static boolean writeMemberAssessmentsToJSONFile(String fn, ArrayList<InsuranceScore> is) {
 		
 		try {
@@ -45,6 +46,10 @@ public class InsuranceScoreWriter {
 		}
 	}
 	
+	/**
+	 * This function writes the member assessments to the screen.
+	 * @param is The arraylist consisting of member assessments objects.
+	 */
 	public static void writeScoresToScreen(ArrayList<InsuranceScore> is) {
 		for (InsuranceScore score : is) {
 			System.out.println(score.toStringToScreen());

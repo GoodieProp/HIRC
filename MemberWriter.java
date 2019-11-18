@@ -9,17 +9,28 @@ import org.json.simple.*;
  */
 
 /**
- * @author xavie
+ * This class represents how the members are written to a file, or to the screen.
+ * Can be written to a Text, Binary, and XML file.
+ * @author Xavier Gonzalez
  *
  */
 public class MemberWriter {
 
+	/**
+	 * This function writes the member information to the screen.
+	 * @param members the arraylist of member objects
+	 */
 	public static void writeMembersToScreen(ArrayList<Member> members) {
 		for (Member mem : members) {
 			System.out.println(mem.toStringToScreen());
 		}
 	}
 
+	/**
+	 * This functions shows if-statements to delegate what file type is the member's information going to be saved as.
+	 * @param fileFormat the type of file.
+	 * @param members the arraylist consisting of member objects.
+	 */
 	public static void writeMembersToFile (String fileFormat, ArrayList<Member> members) {
 
 		Scanner sc = new Scanner(System.in);
@@ -46,6 +57,12 @@ public class MemberWriter {
 
 	}
 
+	/**
+	 * This functions writes the member's information to a text file.
+	 * @param fname the file name
+	 * @param members the arraylist consisting of member objects
+	 * @return True if the file has been written, or False if there was an error.
+	 */
 	public static boolean writeMembersToTextFile(String fname, ArrayList<Member> members) {
 
 		try {
@@ -64,6 +81,12 @@ public class MemberWriter {
 
 	}
 
+	/**
+	 * This function writes the member's information to a binary file.
+	 * @param fname the file name
+	 * @param members the arraylist consisting of member objects
+	 * @return True if the file has been written, or False if there was an error.
+	 */
 	public static boolean writeMembersToBinaryFile(String fname, ArrayList<Member> members) {
 
 		try {
@@ -80,6 +103,12 @@ public class MemberWriter {
 		}	
 	}
 
+	/**
+	 * This function writes the member's information to an XML file.
+	 * @param fname the file name
+	 * @param members the arraylist consisting of member objects.
+	 * @return True if the file has been written, or False if there was an error.
+	 */
 	public static boolean writeMembersToXMLFile(String fname,
 			ArrayList<Member> members) {
 		try {

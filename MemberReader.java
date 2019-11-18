@@ -8,12 +8,18 @@ import java.util.Scanner;
  */
 
 /**
- * @author xavie
+ * This class represents how files are read into the program.
+ * @author Xavier Gonzalez
  *
  */
 public class MemberReader {
 
-	// function to parse members when asked at the start of the program
+	/**
+	 * This function is used to parse the members from the initial file at the start of the program.
+	 * Used to parse members from a text file
+	 * @param member string value that consists the information of a member
+	 * @return A member object.
+	 */
 	public static Member parseMembersFromInitialFile(String member) {
 
 		String firstname;
@@ -44,10 +50,17 @@ public class MemberReader {
 		return new Member(firstname, lastname, age, height, weight, bp_syst, bp_dias, cancer, diabetes, alzheimers);
 	}
 
+	/**
+	 * This function loads the file, and uses the parseMembersFromInitialFile function to parse the members and then add them
+	 * to an arraylist.
+	 * Uses a while loop to separated each member by line.
+	 * @param fname the file name
+	 * @return An arraylist consisting of member objects.
+	 */
 	public static ArrayList<Member> loadMembers (String fname) {
 
 		try {
-			/**
+			/*
 			 * Creates a scanner for the file and also an arraylist that goes through the constructor class
 			 * Uses parseMembers to parse the info into an arraylist
 			 */
@@ -68,6 +81,13 @@ public class MemberReader {
 		}	
 	}
 
+	/**
+	 * This function reads in the file name and asks the user if the file is Text, Binary, or XML.
+	 * If any of the options, it will load the file in their respective function.
+	 * Once read it will be add to an arraylist and return it.
+	 * @param fname the file name
+	 * @return An arraylist consisting of members
+	 */
 	public static ArrayList<Member> readMembersFromFile (String fname) {
 
 		Scanner sc = new Scanner(System.in);
@@ -104,6 +124,11 @@ public class MemberReader {
 
 	}
 
+	/**
+	 * This functions reads in a binary file, adds to an arraylist, and returns it.
+	 * @param fname the file name
+	 * @return An arraylist
+	 */
 	public static ArrayList<Member> readMembersFromBinary(String fname) {
 
 		try {
@@ -114,13 +139,18 @@ public class MemberReader {
 			return result;
 
 		} catch (Exception ex) {
-			System.out.println("Something went bad.\n");
+			System.out.println("Something went wrong.");
 			ex.printStackTrace();
 			return null;
 		}	
 
 	}
 
+	/**
+	 * This functions reads in a XML file, adds to an arraylist, and returns it.
+	 * @param fname the file name
+	 * @return An arraylist consisting of members.
+	 */
 	public static ArrayList<Member> readMembersFromXML(String fname) {
 
 		try {

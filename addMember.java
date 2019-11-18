@@ -5,16 +5,19 @@ import java.util.Scanner;
  */
 
 /**
- * @author xavie
+ * This class represents how a member is added.
+ * @author Xavier Gonzalez
  *
  */
 public class addMember {
 
+	/**
+	 * This function adds a member information through a series of questions.
+	 * @return A member object that includes their information.
+	 */
 	public static Member addMembers () {
-		/**
-		 * 2nd choice is to add a new member
-		 */
-
+	
+		// Initialized variables
 		String firstnameN;
 		String lastnameN;
 		int ageN;
@@ -72,8 +75,6 @@ public class addMember {
 			System.out.println("Something went wrong.");
 			return null;
 		}
-
-		//members.add(mem);
 	}
 
 }
