@@ -1,4 +1,5 @@
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * @author xavie
@@ -17,6 +18,7 @@ public class Member implements Serializable {
 	private String cancer;
 	private String diabetes;
 	private String alzheimers;
+	private ArrayList<String> risk = new ArrayList<String>();
 
 	// Setters and Getters for each variable
 	public String getFirstname() {
@@ -35,52 +37,64 @@ public class Member implements Serializable {
 		return age;
 	}
 	public void setAge(int age) {
+		String ageS = Integer.toString(age);
+		risk.add(ageS);
 		this.age = age;
 	}
 	public int getHeight() {
 		return height;
 	}
 	public void setHeight(int height) {
+		String heightS = Integer.toString(height);
+		risk.add(heightS);
 		this.height = height;
 	}
 	public int getWeight() {
 		return weight;
 	}
 	public void setWeight(int weight) {
+		String weightS = Integer.toString(weight);
+		risk.add(weightS);
 		this.weight = weight;
 	}
 	public int getBp_syst() {
 		return bp_syst;
 	}
 	public void setBp_syst(int bp_syst) {
+		String bp_systS = Integer.toString(bp_syst);
+		risk.add(bp_systS);
 		this.bp_syst = bp_syst;
 	}
 	public int getBp_dias() {
 		return bp_dias;
 	}
 	public void setBp_dias(int bp_dias) {
+		String bp_diasS = Integer.toString(bp_dias);
+		risk.add(bp_diasS);
 		this.bp_dias = bp_dias;
 	}
 	public String getCancer() {
 		return cancer;
 	}
 	public void setCancer(String cancer) {
+		risk.add(cancer);
 		this.cancer = cancer;
 	}
 	public String getDiabetes() {
 		return diabetes;
 	}
 	public void setDiabetes(String diabetes) {
+		risk.add(diabetes);
 		this.diabetes = diabetes;
 	}
 	public String getAlzheimers() {
 		return alzheimers;
 	}
 	public void setAlzheimers(String alzheimers) {
+		risk.add(alzheimers);
 		this.alzheimers = alzheimers;
-	}
-
-
+	}	
+	
 	// Constructor to add new members
 	public Member(String firstname, String lastname, int age, int height, int weight, 
 			int bp_syst, int bp_dias, String cancer, String diabetes,String alzheimers) {
